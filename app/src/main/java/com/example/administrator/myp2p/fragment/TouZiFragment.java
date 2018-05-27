@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 
 import com.example.administrator.myp2p.R;
 
+import static com.example.administrator.myp2p.util.UIUtils.getXmlView;
+
 public class TouZiFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view  = View.inflate(container.getContext(), R.layout.fragment_touzi,null);
+        View view = getXmlView(R.layout.fragment_touzi);
         return view;
     }
 }

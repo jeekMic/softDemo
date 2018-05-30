@@ -69,10 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         setSelect(0);
-        String mm = null;
-        if (mm.equals("")){
-
-        }
     }
 
     @OnClick({R.id.ll_home, R.id.ll_touzi, R.id.ll_me, R.id.ll_more})

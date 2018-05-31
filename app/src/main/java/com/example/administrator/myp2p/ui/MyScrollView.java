@@ -10,9 +10,11 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ScrollView;
 
+import com.example.administrator.myp2p.R;
+
 public class MyScrollView extends ScrollView {
     private View innerview;
-    private float y;
+    private float y=0f;
     private Rect normal = new Rect();
     private boolean animationFinish = true;
 
@@ -33,6 +35,7 @@ public class MyScrollView extends ScrollView {
     protected void onFinishInflate() {
         super.onFinishInflate();
         int childCount = getChildCount();
+        Log.i("childCount",""+childCount);
         if (childCount > 0) {
             innerview = getChildAt(0);
         }
@@ -61,7 +64,8 @@ public class MyScrollView extends ScrollView {
                 //在触摸移动的过程中，计算当前点个按下点的距离
                 float prey = y==0?ev.getY():y;
                 float nowy = ev.getY();
-                int  detailY = (int) (prey-nowy);
+                int  detailY = (int) (nowy-prey);
+                y = nowy;
                 if(isNeedMove())
                 {
                     //记录下最初状态
@@ -69,20 +73,20 @@ public class MyScrollView extends ScrollView {
 
                         normal.set(innerview.getLeft(),innerview.getTop(),innerview.getRight(),innerview.getBottom());
                     }
-                    innerview.layout(innerview.getLeft(),innerview.getTop()-detailY/2,innerview.getRight(),detailY/2+innerview.getBottom());
-                    Log.e("zoubo","innerview.getTop----|"+(innerview.getTop()-detailY/2)+"-------bottom"+(innerview.getBottom()+detailY/2));
+                    innerview.layout(innerview.getLeft(),innerview.getTop()+detailY/2,innerview.getRight(),detailY/2+innerview.getBottom());
+                    Log.e("zoubo","innerview.getTop----|"+(innerview.getTop()+detailY/2)+"-------bottom"+(innerview.getBottom()+detailY/2));
                     Log.e("zoubo","detailY|"+detailY);
                 }
-
                 break;
             case MotionEvent.ACTION_UP:
+                Log.e("hb--",""+innerview.getTop());
+                y = 0;
                 if (isNeedAnimation()){
                     animation();
                 }
-
                 break;
             default:
-                y = 0;
+
                 break;
 
         }
@@ -90,8 +94,12 @@ public class MyScrollView extends ScrollView {
     }
 
     private void animation() {
-        TranslateAnimation translateAnimation = new TranslateAnimation(0,0,0,innerview.getTop()-normal.top);
-        translateAnimation.setDuration(2000);
+        /**
+         * 平移动画，这里需要掌握里面参数的意义fromYDelta表示的是动画开始的时候距离当前view的偏差也就是距离，toYDelta表示的是动画结束的时候距离当前view的偏移量也就是距离
+         * 同理X轴也是一样的。
+         */
+        TranslateAnimation translateAnimation = new TranslateAnimation(0,0,0,normal.top-innerview.getTop());
+        translateAnimation.setDuration(600);
         translateAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -121,6 +129,8 @@ public class MyScrollView extends ScrollView {
         // getHeight是屏幕的大小 与屏幕无关当超出屏幕的时候getMeasureHeight = getHeight+屏幕外没有显示的大小实际上也是view的总高度
         int offset = innerview.getMeasuredHeight()-getHeight();
         int scrollY = getScrollY();
+//        Log.e("zoubo","offset"+offset);
+//        Log.e("zoubo","scrollY"+scrollY);
         if(scrollY==0||scrollY==offset){
         //这个时候移动布局
         return true;
@@ -135,7 +145,7 @@ public class MyScrollView extends ScrollView {
         if (!normal.isEmpty()){
             return true;
         }else{
-            return true;
+            return false;
         }
 
     }

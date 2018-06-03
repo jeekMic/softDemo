@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,30 +67,32 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initData(String content) {
-        Log.i("url", "----------" + content);
-        Gson gson = new Gson();
-        index = gson.fromJson(content, Index.class);
-        //适配数据
-        vpBarner.setAdapter(new MyAdapter());
-        totalprogress = Integer.parseInt(index.getProInfo().getProgress());
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int tempProgress = 0;
-                while(tempProgress<totalprogress){
-                    pProgresss.setProgress(tempProgress);
-                    tempProgress++;
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+        if (!TextUtils.isEmpty(content)){
+            Gson gson = new Gson();
+            index = gson.fromJson(content, Index.class);
+            //适配数据
+            vpBarner.setAdapter(new MyAdapter());
+            //viewpager交给指示器
+            circleBarner.setViewPager(vpBarner);
+            totalprogress = Integer.parseInt(index.getProInfo().getProgress());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    int tempProgress = 0;
+                    while(tempProgress<totalprogress){
+                        pProgresss.setProgress(tempProgress);
+                        tempProgress++;
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Log.i("progress",""+tempProgress);
                     }
-                    Log.i("progress",""+tempProgress);
                 }
-            }
-        }).start();
+            }).start();
 
-
+        }
     }
 
     @Override

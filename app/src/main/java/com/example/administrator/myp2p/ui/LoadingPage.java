@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -17,6 +18,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public abstract class LoadingPage extends FrameLayout {
+    public   Context mContext;
     AsyncHttpClient client = new AsyncHttpClient();
     public static final int PAGE_LOADING_STATE = 1;
     public static final int PAGE_ERROR_STATE = 2;
@@ -31,16 +33,22 @@ public abstract class LoadingPage extends FrameLayout {
     private LayoutParams lp;
     private ResultState resultState = null;
     public LoadingPage(@NonNull Context context) {
+
         this(context,null);
     }
 
     public LoadingPage(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs,0);
+
     }
 
     public LoadingPage(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+
         super(context, attrs, defStyleAttr);
+        this.mContext = context;
         init();
+
+
     }
 
     private void init() {
@@ -48,21 +56,17 @@ public abstract class LoadingPage extends FrameLayout {
             lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             if (loadingView == null) {
                 loadingView = UIUtils.getXmlView(R.layout.page_loading);
-                addView(loadingView);
+                addView(loadingView,lp);
             }
             if(errorView==null){
                 errorView = UIUtils.getXmlView(R.layout.page_error);
-                addView(errorView);
+                addView(errorView,lp);
             }
             if (emptyView==null){
                 emptyView = UIUtils.getXmlView(R.layout.page_empty);
-                addView(emptyView);
+                addView(emptyView,lp);
             }
-            if (sucessView==null){
-            //成功的时候加载home_fregment
-            sucessView = UIUtils.getXmlView(LayoutID());
-            addView(sucessView);
-            }
+
             showSafePage();
 
     }
@@ -81,6 +85,14 @@ public abstract class LoadingPage extends FrameLayout {
                 loadingView.setVisibility(PAGE_CURRENT_STATE==PAGE_LOADING_STATE?View.VISIBLE:View.GONE);
                 errorView.setVisibility(PAGE_CURRENT_STATE==PAGE_ERROR_STATE?View.VISIBLE:View.GONE);
                 emptyView.setVisibility(PAGE_CURRENT_STATE==PAGE_EMPTY_STATE?View.VISIBLE:View.GONE);
+                if (sucessView==null){
+                //成功的时候加载home_fregment
+                    if (mContext==null){
+                        Log.i("hahah","--------showpage");
+                    }
+                sucessView = View.inflate(mContext,LayoutID(),null);
+                addView(sucessView,lp);
+                }
                 sucessView.setVisibility(PAGE_CURRENT_STATE==PAGE_SUCESS_STATE?View.VISIBLE:View.GONE);
     }
 

@@ -17,6 +17,6 @@ public class MyApplication extends Application {
         handler = new Handler();
         mainThread = Thread.currentThread();
         mainThreadID = Process.myTid();
-        CrashHandler.getInstance().init(this);
+//        CrashHandler.getInstance().init(this);
     }
 }

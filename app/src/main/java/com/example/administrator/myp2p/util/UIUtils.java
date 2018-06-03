@@ -54,4 +54,7 @@ public class UIUtils{
             gethandler().post(runnable);
         }
     }
+    public static String[] getStringarr(int arrId){
+        return getContext().getResources().getStringArray(arrId);
+    }
 }

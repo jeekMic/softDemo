@@ -1,11 +1,13 @@
 package com.example.administrator.myp2p.common;
 
 import android.content.Context;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.lang.ref.WeakReference;
 
 /**
  * 处理函数崩溃异常的能力
@@ -58,6 +60,5 @@ public class CrashHandler implements UncaughtExceptionHandler{
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }
-
     }
 }

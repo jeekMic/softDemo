@@ -1,6 +1,8 @@
 package com.example.administrator.myp2p;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,8 @@ import com.example.administrator.myp2p.fragment.MeFragment;
 import com.example.administrator.myp2p.fragment.MoreFragment;
 import com.example.administrator.myp2p.fragment.TouZiFragment;
 import com.example.administrator.myp2p.util.UIUtils;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,15 +58,19 @@ public class MainActivity extends AppCompatActivity {
     private MeFragment meFragment;
     private MoreFragment moreFragment;
     private FragmentTransaction ft;
-
+    private MyHandler  handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        //handler测试
+        handler = new MyHandler(this);
+        Message  message = Message.obtain();
+        handler.sendMessageDelayed(message,10*60*1000);
+
         AppManager.getInstance().addActivity(this);
         initData();
     }
@@ -192,6 +200,17 @@ public class MainActivity extends AppCompatActivity {
         }
         if (moreFragment != null) {
             ft.hide(moreFragment);
+        }
+    }
+
+    private static class MyHandler extends Handler {
+        private WeakReference<MainActivity> mActivity;
+        public MyHandler(MainActivity activity){
+            mActivity = new WeakReference<>(activity);
+        }
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
         }
     }
 }

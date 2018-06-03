@@ -35,7 +35,6 @@ public class MyScrollView extends ScrollView {
     protected void onFinishInflate() {
         super.onFinishInflate();
         int childCount = getChildCount();
-        Log.i("childCount",""+childCount);
         if (childCount > 0) {
             innerview = getChildAt(0);
         }
@@ -70,7 +69,6 @@ public class MyScrollView extends ScrollView {
                 {
                     //记录下最初状态
                     if (normal.isEmpty()){
-
                         normal.set(innerview.getLeft(),innerview.getTop(),innerview.getRight(),innerview.getBottom());
                     }
                     innerview.layout(innerview.getLeft(),innerview.getTop()+detailY/2,innerview.getRight(),detailY/2+innerview.getBottom());
@@ -92,7 +90,6 @@ public class MyScrollView extends ScrollView {
         }
 
     }
-
     private void animation() {
         /**
          * 平移动画，这里需要掌握里面参数的意义fromYDelta表示的是动画开始的时候距离当前view的偏差也就是距离，toYDelta表示的是动画结束的时候距离当前view的偏移量也就是距离
@@ -105,7 +102,6 @@ public class MyScrollView extends ScrollView {
             public void onAnimationStart(Animation animation) {
                 animationFinish = false;
             }
-
             @Override
             public void onAnimationEnd(Animation animation) {
                 innerview.clearAnimation();
@@ -125,12 +121,12 @@ public class MyScrollView extends ScrollView {
 
     //判断是否需要拖动
     public boolean isNeedMove() {
-        //getMeasureHeight()是实际View的大小在这里只有一个view因为scroview只有一个节点
+        //getMeasureHeight()是实际View的大小在这里只有一个view因为scroview只有也只能一个节点
         // getHeight是屏幕的大小 与屏幕无关当超出屏幕的时候getMeasureHeight = getHeight+屏幕外没有显示的大小实际上也是view的总高度
         int offset = innerview.getMeasuredHeight()-getHeight();
         int scrollY = getScrollY();
-//        Log.e("zoubo","offset"+offset);
-//        Log.e("zoubo","scrollY"+scrollY);
+        Log.e("Hzoubo","offset"+offset);
+        Log.e("Hzoubo","scrollY"+scrollY);
         if(scrollY==0||scrollY==offset){
         //这个时候移动布局
         return true;

@@ -8,14 +8,35 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.myp2p.R;
+import com.loopj.android.http.RequestParams;
 
 import static com.example.administrator.myp2p.util.UIUtils.getXmlView;
 
-public class MoreFragment extends Fragment{
-    @Nullable
+public class MoreFragment extends BaseFragment{
+
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = getXmlView(R.layout.fragment_more);
-        return view;
+    protected RequestParams getParams() {
+        return null;
+    }
+
+    @Override
+    protected void initData(String data) {
+
+    }
+
+    @Override
+    protected void initTitle() {
+
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_more;
+    }
+
+    @Override
+    public String getUrl() {
+        return null;
     }
 }

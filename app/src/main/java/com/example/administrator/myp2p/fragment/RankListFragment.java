@@ -6,7 +6,8 @@ import com.loopj.android.http.RequestParams;
 
 import butterknife.BindView;
 
-public class MeFragment extends BaseFragment{
+
+public class RankListFragment extends BaseFragment{
     @BindView(R.id.title_tv)
     TextView tvTitle;
 
@@ -22,12 +23,12 @@ public class MeFragment extends BaseFragment{
 
     @Override
     protected void initTitle() {
-        tvTitle.setText("我的");
+        tvTitle.setText("排行榜");
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_me;
+        return R.layout.fragment_rank;
     }
 
     @Override

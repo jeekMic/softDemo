@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="47dp"
+    android:layout_height="40dp"
     android:layout_marginBottom="2dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/product_red_common">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -15,29 +16,21 @@
             android:id="@+id/title_left"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:minWidth="45dp"
+            android:minWidth="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
             android:src="@mipmap/left" />
 
         <TextView
             android:id="@+id/title_tv"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_centerInParent="true"
             android:text="首页"
-            android:textColor="@color/title_text"
-            android:textSize="25sp" />
-
-        <ImageView
-            android:id="@+id/title_right"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:minWidth="54dp"
-            android:src="@mipmap/my_setting_icon" />
-    </LinearLayout>
-    <View
-        android:background="@color/back_blue"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+    </RelativeLayout>
 
 </LinearLayout>

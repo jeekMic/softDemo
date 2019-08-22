@@ -33,28 +33,8 @@ import butterknife.ButterKnife;
 import static com.example.administrator.myp2p.util.UIUtils.getXmlView;
 
 public class HomeFragment extends BaseFragment {
-
-    @BindView(R.id.title_left)
-    ImageView titleLeft;
     @BindView(R.id.title_tv)
-    TextView titleTv;
-    @BindView(R.id.title_right)
-    ImageView titleRight;
-    @BindView(R.id.vp_barner)
-    ViewPager vpBarner;
-    @BindView(R.id.circle_barner)
-    CirclePageIndicator circleBarner;
-    @BindView(R.id.textView1)
-    TextView textView1;
-    @BindView(R.id.p_progresss)
-    RoundProgress pProgresss;
-    @BindView(R.id.p_yearlv)
-    TextView pYearlv;
-    @BindView(R.id.button1)
-    Button button1;
-
-    private Index index;
-    private int totalprogress=0;
+    TextView tvTitle;
     @Override
     public int getLayoutId() {
         return R.layout.fragment_home;
@@ -67,38 +47,12 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initData(String content) {
-        if (!TextUtils.isEmpty(content)){
-            Gson gson = new Gson();
-            index = gson.fromJson(content, Index.class);
-            //适配数据
-            vpBarner.setAdapter(new MyAdapter());
-            //viewpager交给指示器
-            circleBarner.setViewPager(vpBarner);
-            totalprogress = Integer.parseInt(index.getProInfo().getProgress());
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    int tempProgress = 0;
-                    while(tempProgress<totalprogress){
-                        pProgresss.setProgress(tempProgress);
-                        tempProgress++;
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        Log.i("progress",""+tempProgress);
-                    }
-                }
-            }).start();
 
-        }
     }
 
     @Override
     protected void initTitle() {
-        titleLeft.setVisibility(View.INVISIBLE);
-        titleRight.setVisibility(View.INVISIBLE);
+        tvTitle.setText("首页");
     }
 
 
@@ -107,31 +61,4 @@ public class HomeFragment extends BaseFragment {
         return AppNetConfig.INDEX;
     }
 
-    private class MyAdapter extends PagerAdapter {
-        @Override
-        public int getCount() {
-            return index.getImageArr() == null ? 0 : index.getImageArr().size();
-        }
-
-        @Override
-        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-            return view == object;
-        }
-
-        @NonNull
-        @Override
-        public Object instantiateItem(@NonNull ViewGroup container, int position) {
-            String imageurl = index.getImageArr().get(position).getIMAURL();
-            ImageView imageView = new ImageView(getActivity());
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            container.addView(imageView);
-            Picasso.get().load(imageurl).into(imageView);
-            return imageView;
-        }
-
-        @Override
-        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-            container.removeView((View) object);
-        }
-    }
 }

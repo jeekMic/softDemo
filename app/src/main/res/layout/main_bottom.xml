@@ -24,7 +24,7 @@
                 android:layout_height="match_parent">
                 <ImageView
                     android:id="@+id/iv_home"
-                    android:src="@mipmap/bid02"
+                    android:src="@mipmap/icon01"
                     android:layout_width="30dp"
                     android:layout_height="30dp" />
                 <TextView
@@ -37,7 +37,7 @@
                     android:textColor="@color/home_back_unselected"/>
             </LinearLayout>
         <LinearLayout
-            android:id="@+id/ll_touzi"
+            android:id="@+id/ll_quest_bank"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:orientation="vertical"
@@ -46,15 +46,38 @@
             android:onClick="changeTab"
             android:layout_height="match_parent">
             <ImageView
-                android:id="@+id/iv_touzi"
-                android:src="@mipmap/bid04"
+                android:id="@+id/iv_quest_bank"
+                android:src="@mipmap/icon02"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />
             <TextView
-                android:id="@+id/tv_touzi"
+                android:id="@+id/tv_quest_bank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我要投资"
+                android:text="题库"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp"
+                android:textColor="@color/home_back_unselected"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_rank_list"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:gravity="center"
+            android:onClick="changeTab"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_rank_list"
+                android:src="@mipmap/icon03"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/tv_rank_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="排行榜"
                 android:layout_marginTop="4dp"
                 android:textSize="14sp"
                 android:textColor="@color/home_back_unselected"/>
@@ -70,37 +93,14 @@
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/iv_me"
-                android:src="@mipmap/bid06"
+                android:src="@mipmap/icon04"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />
             <TextView
                 android:id="@+id/tv_me"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我的资产"
-                android:layout_marginTop="4dp"
-                android:textSize="14sp"
-                android:textColor="@color/home_back_unselected"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/ll_more"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:orientation="vertical"
-            android:padding="5dp"
-            android:gravity="center"
-            android:onClick="changeTab"
-            android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/iv_more"
-                android:src="@mipmap/bid08"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
-            <TextView
-                android:id="@+id/tv_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="更多"
+                android:text="我的"
                 android:layout_marginTop="4dp"
                 android:textSize="14sp"
                 android:textColor="@color/home_back_unselected"/>

@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.example.administrator.myp2p.common.AppManager;
 import com.example.administrator.myp2p.fragment.HomeFragment;
+import com.example.administrator.myp2p.fragment.QuestionBankFragment;
+import com.example.administrator.myp2p.fragment.RankListFragment;
 import com.example.administrator.myp2p.fragment.MeFragment;
-import com.example.administrator.myp2p.fragment.MoreFragment;
-import com.example.administrator.myp2p.fragment.TouZiFragment;
 import com.example.administrator.myp2p.util.UIUtils;
 
 import java.lang.ref.WeakReference;
@@ -29,34 +29,40 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.content)
     FrameLayout content;
+
     @BindView(R.id.tv_home)
     TextView tvHome;
-    @BindView(R.id.iv_touzi)
-    ImageView ivTouzi;
-    @BindView(R.id.tv_touzi)
-    TextView tvTouzi;
-    @BindView(R.id.ll_touzi)
-    LinearLayout llTouzi;
+
+    @BindView(R.id.iv_quest_bank)
+    ImageView ivQuestBank;
+    @BindView(R.id.tv_quest_bank)
+    TextView tvQuestBank;
+    @BindView(R.id.ll_quest_bank)
+    LinearLayout llQuestBank;
+
+    @BindView(R.id.iv_rank_list)
+    ImageView ivRankList;
+
+    @BindView(R.id.tv_rank_list)
+    TextView tvRankList;
+
+    @BindView(R.id.ll_rank_list)
+    LinearLayout llRankList;
+
     @BindView(R.id.iv_me)
     ImageView ivMe;
     @BindView(R.id.tv_me)
     TextView tvMe;
     @BindView(R.id.ll_me)
     LinearLayout llMe;
-    @BindView(R.id.iv_more)
-    ImageView ivMore;
-    @BindView(R.id.tv_more)
-    TextView tvMore;
-    @BindView(R.id.ll_more)
-    LinearLayout llMore;
     @BindView(R.id.ll_home)
-    LinearLayout ll_home;
+    LinearLayout llHome;
     @BindView(R.id.iv_home)
     ImageView ivHome;
     private HomeFragment homeFragment;
-    private TouZiFragment touziFragment;
-    private MeFragment meFragment;
-    private MoreFragment moreFragment;
+    private QuestionBankFragment mQuestionBankFragment;
+    private RankListFragment mRankListFragment;
+    private MeFragment mMeFragment;
     private FragmentTransaction ft;
     private MyHandler  handler;
     @Override
@@ -70,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         handler = new MyHandler(this);
         Message  message = Message.obtain();
         handler.sendMessageDelayed(message,10*60*1000);
-
         AppManager.getInstance().addActivity(this);
         initData();
     }
@@ -79,21 +84,22 @@ public class MainActivity extends AppCompatActivity {
         setSelect(0);
     }
 
-    @OnClick({R.id.ll_home, R.id.ll_touzi, R.id.ll_me, R.id.ll_more})
+    @OnClick({R.id.ll_home, R.id.ll_quest_bank, R.id.ll_me, R.id.ll_rank_list})
     public void changeTab(View view) {
         switch (view.getId()) {
             case R.id.ll_home:
                 setSelect(0);
                 break;
-            case R.id.ll_touzi:
+            case R.id.ll_quest_bank:
                 setSelect(1);
                 break;
-            case R.id.ll_me:
+            case R.id.ll_rank_list:
                 setSelect(2);
                 break;
-            case R.id.ll_more:
+            case R.id.ll_me:
                 setSelect(3);
                 break;
+
         }
     }
 
@@ -115,55 +121,53 @@ public class MainActivity extends AppCompatActivity {
                      */
                     ft.add(R.id.content, homeFragment);
                 }
-                ivHome.setImageResource(R.mipmap.bid01);
+                ivHome.setImageResource(R.mipmap.icon05);
                 tvHome.setTextColor(UIUtils.getColor(R.color.home_back_selected));
                 ft.show(homeFragment);
 
                 break;
             case 1:
-                //投资
-                if (touziFragment == null) {
+                if (mQuestionBankFragment == null) {
                     //首页
-                    touziFragment = new TouZiFragment();
+                    mQuestionBankFragment = new QuestionBankFragment();
                     /*相当于移除掉再添加上去，这样不好，下次加载页面需要重新加载数据
                      * 那么我们这里可以用hide() 下次在需要的时候使用show()显示出来就可以
                      * 添加时候使用add() 这里就只需要add一遍
                      */
-                    ft.add(R.id.content, touziFragment);
+                    ft.add(R.id.content, mQuestionBankFragment);
                 }
-                ft.show(touziFragment);
-                ivTouzi.setImageResource(R.mipmap.bid03);
-                tvTouzi.setTextColor(UIUtils.getColor(R.color.home_back_selected));
-                break;
-            case 2:
-                //资产
-                if (meFragment == null) {
-                    //首页
-                    meFragment = new MeFragment();
-                    /*相当于移除掉再添加上去，这样不好，下次加载页面需要重新加载数据
-                     * 那么我们这里可以用hide() 下次在需要的时候使用show()显示出来就可以
-                     * 添加时候使用add() 这里就只需要add一遍
-                     */
-                    ft.add(R.id.content, meFragment);
-                }
-                ft.show(meFragment);
-                ivMe.setImageResource(R.mipmap.bid05);
-                tvMe.setTextColor(UIUtils.getColor(R.color.home_back_selected));
+                ft.show(mQuestionBankFragment);
+                ivQuestBank.setImageResource(R.mipmap.icon06);
+                tvQuestBank.setTextColor(UIUtils.getColor(R.color.home_back_selected));
                 break;
             case 3:
-                //更多
-                if (moreFragment == null) {
+                if (mRankListFragment == null) {
                     //首页
-                    moreFragment = new MoreFragment();
+                    mRankListFragment = new RankListFragment();
                     /*相当于移除掉再添加上去，这样不好，下次加载页面需要重新加载数据
                      * 那么我们这里可以用hide() 下次在需要的时候使用show()显示出来就可以
                      * 添加时候使用add() 这里就只需要add一遍
                      */
-                    ft.add(R.id.content, moreFragment);
+                    ft.add(R.id.content, mRankListFragment);
                 }
-                ft.show(moreFragment);
-                ivMore.setImageResource(R.mipmap.bid07);
-                tvMore.setTextColor(UIUtils.getColor(R.color.home_back_selected));
+                ft.show(mRankListFragment);
+                ivRankList.setImageResource(R.mipmap.icon07);
+                tvRankList.setTextColor(UIUtils.getColor(R.color.home_back_selected));
+                break;
+            case 2:
+                if (mMeFragment == null) {
+                    //首页
+                    mMeFragment = new MeFragment();
+                    /*相当于移除掉再添加上去，这样不好，下次加载页面需要重新加载数据
+                     * 那么我们这里可以用hide() 下次在需要的时候使用show()显示出来就可以
+                     * 添加时候使用add() 这里就只需要add一遍
+                     */
+                    ft.add(R.id.content, mMeFragment);
+                }
+                ft.show(mMeFragment);
+                ivMe.setImageResource(R.mipmap.icon08);
+                tvMe.setTextColor(UIUtils.getColor(R.color.home_back_selected));
+
                 break;
         }
         ft.commit();
@@ -171,35 +175,35 @@ public class MainActivity extends AppCompatActivity {
 
     private void resetTab() {
 
-        ivHome.setImageResource(R.mipmap.bid02);
+        ivHome.setImageResource(R.mipmap.icon01);
 
-        ivTouzi.setImageResource(R.mipmap.bid04);
+        ivQuestBank.setImageResource(R.mipmap.icon02);
 
-        ivMe.setImageResource(R.mipmap.bid06);
+        ivRankList.setImageResource(R.mipmap.icon03);
 
-        ivMore.setImageResource(R.mipmap.bid08);
+        ivMe.setImageResource(R.mipmap.icon04);
 
         tvHome.setTextColor(UIUtils.getColor(R.color.home_back_unselected));
 
-        tvTouzi.setTextColor(UIUtils.getColor(R.color.home_back_unselected));
+        tvQuestBank.setTextColor(UIUtils.getColor(R.color.home_back_unselected));
 
         tvMe.setTextColor(UIUtils.getColor(R.color.home_back_unselected));
 
-        tvMore.setTextColor(UIUtils.getColor(R.color.home_back_unselected));
+        tvRankList.setTextColor(UIUtils.getColor(R.color.home_back_unselected));
     }
 
     private void hideFragment() {
         if (homeFragment != null) {
             ft.hide(homeFragment);
         }
-        if (touziFragment != null) {
-            ft.hide(touziFragment);
+        if (mQuestionBankFragment != null) {
+            ft.hide(mQuestionBankFragment);
         }
-        if (meFragment != null) {
-            ft.hide(meFragment);
+        if (mRankListFragment != null) {
+            ft.hide(mRankListFragment);
         }
-        if (moreFragment != null) {
-            ft.hide(moreFragment);
+        if (mMeFragment != null) {
+            ft.hide(mMeFragment);
         }
     }
 

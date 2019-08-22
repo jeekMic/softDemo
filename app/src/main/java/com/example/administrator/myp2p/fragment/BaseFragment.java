@@ -21,52 +21,19 @@ import static com.example.administrator.myp2p.util.UIUtils.getXmlView;
 
 public abstract  class BaseFragment extends Fragment {
     private Unbinder unbinder;
-    private LoadingPage loadingPage;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        loadingPage = new LoadingPage(container.getContext()) {
-            @Override
-            public int LayoutID() {
-                return getLayoutId();
-            }
 
-            @Override
-            protected void OnSuccess(ResultState resultState,View successview) {
-                ButterKnife.bind(BaseFragment.this,successview);
-                initTitle();
-                initData(resultState.getContent());
-
-            }
-
-            @Override
-            protected RequestParams params() {
-                return getParams();
-            }
-
-            @Override
-            protected String url() {
-                return getUrl();
-            }
-        };
-
-//        View view = getXmlView(getLayoutId());
-//        unbinder = ButterKnife.bind(this, view);
-//        initTitle();
-//        initData();
-        return loadingPage;
+        View view = getXmlView(getLayoutId());
+        unbinder = ButterKnife.bind(this,view);
+        initTitle();
+        return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        UIUtils.gethandler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                loadingPage.show();
-            }
-        },2000);
 
     }
 
@@ -80,8 +47,8 @@ public abstract  class BaseFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         unbinder.unbind();
+        super.onDestroyView();
     }
 
     public abstract String getUrl();

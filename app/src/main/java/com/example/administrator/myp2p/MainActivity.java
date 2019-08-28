@@ -1,5 +1,6 @@
 package com.example.administrator.myp2p;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -68,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //透明状态栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         //handler测试
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 ivQuestBank.setImageResource(R.mipmap.icon06);
                 tvQuestBank.setTextColor(UIUtils.getColor(R.color.home_back_selected));
                 break;
-            case 3:
+            case 2:
                 if (mRankListFragment == null) {
                     //首页
                     mRankListFragment = new RankListFragment();
@@ -154,7 +154,8 @@ public class MainActivity extends AppCompatActivity {
                 ivRankList.setImageResource(R.mipmap.icon07);
                 tvRankList.setTextColor(UIUtils.getColor(R.color.home_back_selected));
                 break;
-            case 2:
+
+            case 3:
                 if (mMeFragment == null) {
                     //首页
                     mMeFragment = new MeFragment();
@@ -167,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
                 ft.show(mMeFragment);
                 ivMe.setImageResource(R.mipmap.icon08);
                 tvMe.setTextColor(UIUtils.getColor(R.color.home_back_selected));
-
                 break;
         }
         ft.commit();

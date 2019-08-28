@@ -35,13 +35,6 @@ public class AppManager {
                 break;
             }
         }
-//        for (Activity temp: activityStack)  {
-//            if (temp.getClass().equals(activity)){
-//                temp.finish();
-//                activityStack.remove(temp);
-//                break;
-//            }
-//        }
     }
 
     public void removeCurrent(){

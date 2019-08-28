@@ -89,7 +89,13 @@
     <!-- password-->
     <drawable name="pass_line">#28baed</drawable>
 
-    <!--shenbei_充值button-->
     <color name="bg">#ccc</color>
     <color name="bg_text">#999</color>
+
+    <color name="colorYellow">#FFA54F</color>
+    <color name="colorBlue">#8EE5EE</color>
+    <color name="colorGreen">#00FA9A</color>
+    <color name="colorRed">#EE4000</color>
+    <color name="pro_color">#F95B47</color>
+    <color name="my_gray">#33000000</color>
 </resources>

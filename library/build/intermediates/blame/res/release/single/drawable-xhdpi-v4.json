@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "E:\\Android_Practice\\all_app\\library\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\4bcf47b7b051e5c6b9b42d2e7df50c27\\res\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "E:\\Android_Practice\\all_app\\library\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notification_bg_normal_pressed.9.png",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\4bcf47b7b051e5c6b9b42d2e7df50c27\\res\\drawable-xhdpi-v4\\notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "E:\\Android_Practice\\all_app\\library\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\4bcf47b7b051e5c6b9b42d2e7df50c27\\res\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "E:\\Android_Practice\\all_app\\library\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\vpi__tab_unselected_pressed_holo.9.png",
+        "source": "E:\\Android_Practice\\all_app\\library\\src\\main\\res\\drawable-xhdpi\\vpi__tab_unselected_pressed_holo.9.png"
+    },
+    {
+        "merged": "E:\\Android_Practice\\all_app\\library\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\vpi__tab_selected_pressed_holo.9.png",
+        "source": "E:\\Android_Practice\\all_app\\library\\src\\main\\res\\drawable-xhdpi\\vpi__tab_selected_pressed_holo.9.png"
+    },
+    {
+        "merged": "E:\\Android_Practice\\all_app\\library\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\vpi__tab_unselected_holo.9.png",
+        "source": "E:\\Android_Practice\\all_app\\library\\src\\main\\res\\drawable-xhdpi\\vpi__tab_unselected_holo.9.png"
+    },
+    {
+        "merged": "E:\\Android_Practice\\all_app\\library\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\vpi__tab_selected_holo.9.png",
+        "source": "E:\\Android_Practice\\all_app\\library\\src\\main\\res\\drawable-xhdpi\\vpi__tab_selected_holo.9.png"
+    },
+    {
+        "merged": "E:\\Android_Practice\\all_app\\library\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notification_bg_normal.9.png",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\4bcf47b7b051e5c6b9b42d2e7df50c27\\res\\drawable-xhdpi-v4\\notification_bg_normal.9.png"
+    },
+    {
+        "merged": "E:\\Android_Practice\\all_app\\library\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\4bcf47b7b051e5c6b9b42d2e7df50c27\\res\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "E:\\Android_Practice\\all_app\\library\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\vpi__tab_selected_focused_holo.9.png",
+        "source": "E:\\Android_Practice\\all_app\\library\\src\\main\\res\\drawable-xhdpi\\vpi__tab_selected_focused_holo.9.png"
+    },
+    {
+        "merged": "E:\\Android_Practice\\all_app\\library\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\vpi__tab_unselected_focused_holo.9.png",
+        "source": "E:\\Android_Practice\\all_app\\library\\src\\main\\res\\drawable-xhdpi\\vpi__tab_unselected_focused_holo.9.png"
+    }
+]

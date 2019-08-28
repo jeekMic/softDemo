@@ -28,13 +28,18 @@ public abstract  class BaseFragment extends Fragment {
         View view = getXmlView(getLayoutId());
         unbinder = ButterKnife.bind(this,view);
         initTitle();
+
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initEvent();
 
+    }
+
+    protected void initEvent() {
     }
 
     protected abstract RequestParams getParams();

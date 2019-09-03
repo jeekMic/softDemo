@@ -98,4 +98,6 @@
     <color name="colorRed">#EE4000</color>
     <color name="pro_color">#F95B47</color>
     <color name="my_gray">#33000000</color>
+    <color name="colorAccent1">#80FF4081</color>
+    <color name="gray">#808080</color>
 </resources>

@@ -5,7 +5,48 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
-<include layout="@layout/common_top"/>
+    <include layout="@layout/common_top"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+        <TextView
+            android:id="@+id/top_year"
+            android:layout_width="0dp"
+            android:text="年份"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"/>
 
-
+        <TextView
+            android:id="@+id/top_morning"
+            android:layout_width="0dp"
+            android:text="上午题"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/top_after"
+            android:layout_width="0dp"
+            android:text="下午题"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/top_point"
+            android:layout_width="0dp"
+            android:text="知识点"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"/>
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/question_bank_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

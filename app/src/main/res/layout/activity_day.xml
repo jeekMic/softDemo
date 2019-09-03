@@ -8,14 +8,83 @@
     android:orientation="vertical">
     <include layout="@layout/common_top"
         android:id="@+id/include"/>
-
-    <Button
-        android:text="测试读取数据库数据"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/tv_result"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/question_up"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="   上一题"
+            android:gravity="left"
+            android:textSize="18sp"
+            android:textColor="@color/title_select_back"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/quest_number"
+            android:text="当前答题: 1/10"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="下一题   "
+            android:gravity="right"
+            android:textSize="18sp"
+            android:id="@+id/question_down"
+            android:textColor="@color/title_select_back"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <WebView
+                android:id="@+id/question_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <WebView
+                android:id="@+id/answer_a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <WebView
+                android:id="@+id/answer_b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <WebView
+                android:id="@+id/answer_c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <WebView
+                android:id="@+id/answer_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/stand_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGreen"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:padding="5dp"/>
+            <WebView
+                android:id="@+id/wv_explain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

@@ -4,7 +4,10 @@ import android.telephony.PhoneNumberUtils;
 import android.text.style.QuoteSpan;
 import android.util.Log;
 
+import com.example.administrator.myp2p.bean.DayQuestion;
+import com.example.administrator.myp2p.bean.MenuInfo;
 import com.example.administrator.myp2p.bean.Question;
+import com.example.administrator.myp2p.bean.QuestionPoint;
 import com.example.administrator.myp2p.util.DBOpenHelper;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -22,9 +25,16 @@ import java.util.List;
 public class DBService {
     private static Object object =new Object();
     private static final String TAG = "DBService";
-    private List<Question> questions;
-    private Question question = null;
+    private List<DayQuestion> questions;
+    private DayQuestion question = null;
     private volatile static DBService instance = null;
+    private List<String> menus;
+//    private List<QuestionPoint> points;
+//    private QuestionPoint point;
+    private Connection conn = null;
+    private List<String> halfyear;
+    private List<MenuInfo> menuInfos;
+    private MenuInfo menuInfo;
     public static  DBService getInstance(){
         if (instance==null){
             synchronized (object){
@@ -39,7 +49,6 @@ public class DBService {
 
     }
     private  Connection getConnection(String dbName) {
-        Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver"); //加载驱动
             String ip = "47.96.166.159";
@@ -54,14 +63,102 @@ public class DBService {
         return conn;
     }
 
-   public  List<Question> getQuestionById(String question_id) {
+    //获取上下午题
+    public List<MenuInfo> getMorningQuestionList(int index){
+        String str ="";
+        int id= 1;
+        if (index==0){
+            id= 1;
+            str = "上午题";
+        }else {
+            id=2;
+            str = "下午案例分析";
+        }
+        conn = getConnection("soft");
+        Statement st = null;
+        halfyear = new ArrayList<>();
+        menuInfos = new ArrayList<>();
+
+        try {
+            st = conn.createStatement();
+
+            String sql = "select iyear, ihalfyear from t_course where title='"+str+"' and classid="+id+" order by iyear desc";
+            Log.e("sql-",sql);
+            ResultSet res = (ResultSet) st.executeQuery(sql);
+            if (res == null) {
+                Log.e("data===","res=null");
+                return null;
+            } else {
+                while (res.next()){
+                    menuInfo = new MenuInfo();
+                    if (res.getInt(2)==1){
+                        if (index==0)menuInfo.setTitle(res.getInt(1)+"上半年上午题");
+                        if (index==1)menuInfo.setTitle(res.getInt(1)+"上半年下午案例分析");
+                    }else {
+                        if (index==0)menuInfo.setTitle(res.getInt(1)+"下半年上午题");
+                        if (index==1)menuInfo.setTitle(res.getInt(1)+"下半年下午案例分析");
+                    }
+                    if (index==0) menuInfo.setNumber("75考题");
+                    if (index==1) menuInfo.setNumber("3考题");
+                    menuInfos.add(menuInfo);
+                    Log.e("sql-",menuInfo.getTitle());
+                }
+                conn.close();
+                st.close();
+                res.close();
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return menuInfos;
+    }
+    //获取所有的年份
+   public List<String>  getYears(){
+       menus = new ArrayList<>();
+       conn = getConnection("soft");
+       Statement st = null;
+       try {
+           st = conn.createStatement();
+           String sql = "select * from allyear order by id desc";
+           ResultSet res = (ResultSet) st.executeQuery(sql);
+           if (res == null) {
+               Log.e("data===","res=null");
+               return null;
+           } else {
+               int cnt = res.getMetaData().getColumnCount();
+               int j =0;
+               while (res.next()){
+                   menus.add(res.getString(2));
+               }
+               conn.close();
+               st.close();
+               res.close();
+           }
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+
+        return menus;
+   }
+   //根据题号获取题目的信息
+   public  List<DayQuestion> getQuestionById(String... question_id) {
+        StringBuffer buffer = new StringBuffer();
+        buffer.setLength(0);
+        for (int i=0;i<question_id.length;i++){
+            if (i==0){
+                buffer.append(""+question_id[i]);
+            }else {
+                buffer.append(" or id="+question_id[i]);
+            }
+        }
        questions = new ArrayList<>();
        questions.clear();
         HashMap<String, String> map = new HashMap<>();
-        Connection conn = getConnection("soft");
+       conn = getConnection("soft");
         try {
             Statement st = conn.createStatement();
-            String sql = "select * from t_question where id = '" + question_id + "'";
+            String sql = "select * from t_question where id = " + buffer.toString() + "";
             ResultSet res = (ResultSet) st.executeQuery(sql);
             if (res == null) {
                 Log.e("data===","res=null");
@@ -71,7 +168,7 @@ public class DBService {
                 int j =0;
                 while (res.next()){
                     Log.e("data===","=next");
-                    question = new Question();
+                    question = new DayQuestion();
                     question.setId(res.getObject(1).toString());
                     question.setTitle(res.getObject(2).toString());
                     question.setItype(res.getInt(3));
@@ -98,6 +195,36 @@ public class DBService {
             Log.d(TAG, " 数据操作异常");
             return null;
         }
+    }
+   //读取知识点的数据
+    public List<MenuInfo> getQuestionPoint(){
+        menuInfos = new ArrayList<>();
+        conn = getConnection("soft");
+        Statement st = null;
+        try {
+            st = conn.createStatement();
+            String sql = "select c.title,count(*) from t_course as c,t_question as q where c.id=q.courseid2 and c.classid=2 and c.itype=1 group by c.title";
+            ResultSet res = (ResultSet) st.executeQuery(sql);
+            if (res == null) {
+                Log.e("data===","res=null");
+                return null;
+            } else {
+                while (res.next()){
+                    menuInfo = new MenuInfo();
+                    menuInfo.setTitle(res.getString(1));
+                    menuInfo.setNumber(res.getInt(2)+"考题");
+                    menuInfos.add(menuInfo);
+                }
+                conn.close();
+                st.close();
+                res.close();
+                return menuInfos;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 

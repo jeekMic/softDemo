@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/item_bg">
+    <TextView
+        android:textSize="16sp"
+        android:text="试题"
+        android:padding="5dp"
+        android:id="@+id/tv_quest_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text=" 25套题目"
+        android:padding="5dp"
+        android:textSize="13sp"
+        android:id="@+id/tv_info"
+        android:drawableLeft="@mipmap/tiku"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

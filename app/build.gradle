@@ -37,7 +37,9 @@ android {
         implementation 'com.squareup.picasso:picasso:2.71828'
         implementation 'com.github.xiaohaibin:XBanner:1.7.0'
         implementation 'com.facebook.fresco:fresco:1.10.0'
+        implementation 'com.android.support:cardview-v7:27.1.1'
         implementation 'org.greenrobot:greendao:3.2.2'
         implementation files('libs/mysql-connector-java-5.0.8-bin.jar')
     }
 }
+

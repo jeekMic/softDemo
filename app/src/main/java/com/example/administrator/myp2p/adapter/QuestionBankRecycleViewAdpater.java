@@ -11,21 +11,24 @@ import android.widget.TextView;
 
 import com.example.administrator.myp2p.R;
 import com.example.administrator.myp2p.bean.MenuInfo;
+import com.example.administrator.myp2p.imple.OnRecycleItemClick;
 
 import java.util.List;
 
 public class QuestionBankRecycleViewAdpater extends RecyclerView.Adapter<QuestionBankRecycleViewAdpater.MyviewHolder> {
     private Context mContext;
     private List<MenuInfo> data;
-
+    private OnRecycleItemClick listener;
     public void update(List<MenuInfo> list){
+        Log.e("数据===2","刷新"+list.size());
         this.data = list;
-        Log.e("数据===","刷新"+data.size());
+        Log.e("数据===3","刷新"+data.size());
         notifyDataSetChanged();
     }
-    public QuestionBankRecycleViewAdpater(Context mContext, List<MenuInfo> data) {
+    public QuestionBankRecycleViewAdpater(Context mContext, List<MenuInfo> data,OnRecycleItemClick listener) {
         this.mContext = mContext;
         this.data = data;
+        this.listener = listener;
     }
 
     @Override
@@ -41,10 +44,16 @@ public class QuestionBankRecycleViewAdpater extends RecyclerView.Adapter<Questio
      * @param position
      */
     @Override
-    public void onBindViewHolder(@NonNull QuestionBankRecycleViewAdpater.MyviewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull QuestionBankRecycleViewAdpater.MyviewHolder holder, final int position) {
     MenuInfo s = data.get(position);
     holder.tv_head.setText(s.getTitle());
     holder.tv_number.setText(s.getNumber());
+    holder.tv_head.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            listener.onItemClick(position);
+        }
+    });
     }
 
     @Override

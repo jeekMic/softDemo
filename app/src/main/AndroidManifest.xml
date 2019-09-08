@@ -4,7 +4,8 @@
     package="com.example.administrator.myp2p">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -20,10 +21,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.DayActivity"/>
+        <activity android:name=".activity.DayActivity" />
+        <activity android:name=".activity.AnswerActivity"></activity>
     </application>
 
 </manifest>

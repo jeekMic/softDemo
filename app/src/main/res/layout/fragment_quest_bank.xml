@@ -6,45 +6,54 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
     <include layout="@layout/common_top"/>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
-        <TextView
-            android:id="@+id/top_year"
-            android:layout_width="0dp"
-            android:text="年份"
-            android:textSize="18sp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"/>
+        android:background="#ffffff">
 
-        <TextView
-            android:id="@+id/top_morning"
-            android:layout_width="0dp"
-            android:text="上午题"
-            android:textSize="18sp"
+        <RadioGroup
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"/>
-        <TextView
-            android:id="@+id/top_after"
-            android:layout_width="0dp"
-            android:text="下午题"
-            android:textSize="18sp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"/>
-        <TextView
-            android:id="@+id/top_point"
-            android:layout_width="0dp"
-            android:text="知识点"
-            android:textSize="18sp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"/>
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:layout_margin="5dp"
+            android:id="@+id/raido_group"
+            android:background="#cccccc"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:text="年份"
+                android:id="@+id/top_year"
+                style="@style/radiobutton_left"
+                android:textColor="@drawable/radiobutton_text_selector"
+                android:background="@drawable/selector_radiobutton_bg_left"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <RadioButton
+                android:text="上午题"
+                android:id="@+id/top_morning"
+                style="@style/radiobutton_right"
+                android:textColor="@drawable/radiobutton_text_selector"
+                android:background="@drawable/selector_radiobutton_bg_right"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <RadioButton
+                android:text="下午题"
+                android:id="@+id/top_after"
+                style="@style/radiobutton_right"
+                android:textColor="@drawable/radiobutton_text_selector"
+                android:background="@drawable/selector_radiobutton_bg_right"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <RadioButton
+                android:text="知识点"
+                android:id="@+id/top_point"
+                style="@style/radiobutton_right"
+                android:textColor="@drawable/radiobutton_text_selector"
+                android:background="@drawable/selector_radiobutton_bg_right"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+        </RadioGroup>
+    </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/question_bank_recycle"
         android:layout_width="match_parent"

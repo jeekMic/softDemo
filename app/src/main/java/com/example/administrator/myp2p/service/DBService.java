@@ -8,6 +8,7 @@ import com.example.administrator.myp2p.bean.DayQuestion;
 import com.example.administrator.myp2p.bean.MenuInfo;
 import com.example.administrator.myp2p.bean.Question;
 import com.example.administrator.myp2p.bean.QuestionPoint;
+import com.example.administrator.myp2p.bean.TCourse;
 import com.example.administrator.myp2p.util.DBOpenHelper;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -26,7 +27,11 @@ public class DBService {
     private static Object object =new Object();
     private static final String TAG = "DBService";
     private List<DayQuestion> questions;
+    private List<Question> questiones;
+    private List<TCourse> courses;
     private DayQuestion question = null;
+    private Question questionF = null;
+    private TCourse course = null;
     private volatile static DBService instance = null;
     private List<String> menus;
 //    private List<QuestionPoint> points;
@@ -82,7 +87,7 @@ public class DBService {
         try {
             st = conn.createStatement();
 
-            String sql = "select iyear, ihalfyear from t_course where title='"+str+"' and classid="+id+" order by iyear desc";
+            String sql = "select iyear, ihalfyear,id from t_course where title='"+str+"' and classid="+id+" order by iyear desc";
             Log.e("sql-",sql);
             ResultSet res = (ResultSet) st.executeQuery(sql);
             if (res == null) {
@@ -100,6 +105,7 @@ public class DBService {
                     }
                     if (index==0) menuInfo.setNumber("75考题");
                     if (index==1) menuInfo.setNumber("3考题");
+                    menuInfo.setId(res.getInt(3)+"");
                     menuInfos.add(menuInfo);
                     Log.e("sql-",menuInfo.getTitle());
                 }
@@ -114,30 +120,33 @@ public class DBService {
         return menuInfos;
     }
     //获取所有的年份
-   public List<String>  getYears(){
+   public synchronized  List<String>  getYears(){
        menus = new ArrayList<>();
        conn = getConnection("soft");
        Statement st = null;
-       try {
-           st = conn.createStatement();
-           String sql = "select * from allyear order by id desc";
-           ResultSet res = (ResultSet) st.executeQuery(sql);
-           if (res == null) {
-               Log.e("data===","res=null");
-               return null;
-           } else {
-               int cnt = res.getMetaData().getColumnCount();
-               int j =0;
-               while (res.next()){
-                   menus.add(res.getString(2));
+       synchronized (DBService.this){
+           try {
+               st = conn.createStatement();
+               String sql = "select * from allyear order by id desc";
+               ResultSet res = (ResultSet) st.executeQuery(sql);
+               if (res == null) {
+                   Log.e("data===","res=null");
+                   return null;
+               } else {
+                   int cnt = res.getMetaData().getColumnCount();
+                   int j =0;
+                   while (res.next()){
+                       menus.add(res.getString(2));
+                   }
+                   conn.close();
+                   st.close();
+                   res.close();
                }
-               conn.close();
-               st.close();
-               res.close();
+           } catch (SQLException e) {
+               e.printStackTrace();
            }
-       } catch (SQLException e) {
-           e.printStackTrace();
        }
+
 
         return menus;
    }
@@ -203,7 +212,7 @@ public class DBService {
         Statement st = null;
         try {
             st = conn.createStatement();
-            String sql = "select c.title,count(*) from t_course as c,t_question as q where c.id=q.courseid2 and c.classid=2 and c.itype=1 group by c.title";
+            String sql = "select c.title,count(*),c.id from t_course as c,t_question as q where c.id=q.courseid2 and c.classid=2 and c.itype=1 group by c.title";
             ResultSet res = (ResultSet) st.executeQuery(sql);
             if (res == null) {
                 Log.e("data===","res=null");
@@ -213,6 +222,7 @@ public class DBService {
                     menuInfo = new MenuInfo();
                     menuInfo.setTitle(res.getString(1));
                     menuInfo.setNumber(res.getInt(2)+"考题");
+                    menuInfo.setId(res.getInt(3)+"");
                     menuInfos.add(menuInfo);
                 }
                 conn.close();
@@ -226,8 +236,110 @@ public class DBService {
 
         return null;
     }
+    //根据sql语句返回QUestion
+    public List<Question> getQuestionBySQL(String sql){
+        Log.e("data===","=1");
+        questiones = new ArrayList<>();
+        questiones.clear();
+        HashMap<String, String> map = new HashMap<>();
+        conn = getConnection("soft");
+        Log.e("data===","=2");
+        try {
+            Statement st = conn.createStatement();
+            ResultSet res = (ResultSet) st.executeQuery(sql);
+            Log.e("data===","=3");
+            if (res == null) {
+                Log.e("data===","res=null");
+                return null;
+            } else {
+                Log.e("data===","=4");
+                int cnt = res.getMetaData().getColumnCount();
+                int j =0;
+                while (res.next()){
+                    Log.e("data===","=5");
+                    Log.e("data===","=next");
+                    questionF = new Question();
+                    questionF.setId(res.getObject(1).toString());
+                    questionF.setTitle(res.getObject(2).toString());
+                    questionF.setItype(res.getInt(3));
+                    questionF.setRank(res.getObject(4).toString());
+                    questionF.setClassid(res.getObject(5).toString());
+                    questionF.setCourseid(res.getObject(6).toString());
+                    questionF.setCourseid2(res.getObject(7).toString());
+                    questionF.setAnswers(res.getObject(8).toString());
+                    questionF.setKeys(res.getObject(9).toString());
+                    questionF.setExplain(res.getObject(10).toString());
+                    questionF.setScore(res.getObject(11).toString());
+                    questionF.setIs_en((Boolean) res.getObject(12));
+                    questionF.setStatus((Boolean) res.getObject(13));
+                    questiones.add(questionF);
+                    Log.e("data===","=6");
+                    Log.e("data===","=add");
+                }
+                conn.close();
+                st.close();
+                res.close();
+                Log.e("data===","=7");
+                return questiones;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d(TAG, " 数据操作异常");
+            return null;
+        }
 
+    }
 
+    //根据sql返回Tcourse
+    public List<TCourse> getCourse(String sql){
+        Log.e("data===","=1");
+        courses = new ArrayList<>();
+        courses.clear();
+        HashMap<String, String> map = new HashMap<>();
+        conn = getConnection("soft");
+        Log.e("data===","=2");
+        try {
+            Statement st = conn.createStatement();
+            ResultSet res = (ResultSet) st.executeQuery(sql);
+            Log.e("data===","=3");
+            if (res == null) {
+                Log.e("data===","res=null");
+                return null;
+            } else {
+                Log.e("data===","=4");
+                int cnt = res.getMetaData().getColumnCount();
+                int j =0;
+                while (res.next()){
+                    Log.e("data===","=5");
+                    Log.e("data===","=next");
+                    course = new TCourse();
+                    course.setId(res.getInt(1));
+                    course.setClassid(res.getInt(2));
+                    course.setTitle(res.getString(3));
+                    course.setItype(res.getInt(4));
+                    course.setIyear(res.getInt(5));
+                    course.setIhalfyear(res.getInt(6));
+                    course.setIhalfday(res.getInt(7));
+                    course.setImage(res.getString(8));
+                    course.setIntro(res.getString(9));
+                    course.setSort(res.getInt(10));
+                    course.setIfree(res.getInt(11));
+                    courses.add(course);
+                    Log.e("data===","=6");
+                    Log.e("data===","=add");
+                }
+                conn.close();
+                st.close();
+                res.close();
+                Log.e("data===","=7");
+                return courses;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d(TAG, " 数据操作异常");
+            return null;
+        }
+    }
     private static String upCaseFirstChar(String str) {
         if(str!=null&&str.length()>1)
         {

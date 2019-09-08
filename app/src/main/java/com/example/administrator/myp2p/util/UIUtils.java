@@ -13,6 +13,10 @@ import java.util.Calendar;
  * 访问跟UI相关的一些操作
  */
 public class UIUtils{
+    public  static int QUEATION_M = 0;//上午题
+    public static int QUEATION_A = 1;//下午提
+    public static int QUEATION_P = 2;//知识点
+
     public static Context getContext(){
         return MyApplication.context;
     }

@@ -1,11 +1,17 @@
 package com.example.administrator.myp2p.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
+import java.io.Serializable;
+
 @Entity
-public class Question {
+public class Question implements Parcelable {
+    private static final long serialVersionUID = 1L;
     @Id
     private String id;
     private String title;
@@ -20,11 +26,51 @@ public class Question {
     private String score;
     private boolean is_en;
     private boolean status;
+    private String select="E";
+
+    protected Question(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        itype = in.readInt();
+        rank = in.readString();
+        classid = in.readString();
+        courseid = in.readString();
+        courseid2 = in.readString();
+        answers = in.readString();
+        keys = in.readString();
+        explain = in.readString();
+        score = in.readString();
+        is_en = in.readByte() != 0;
+        status = in.readByte() != 0;
+        select = in.readString();
+    }
+
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
+
+    public String getSelect() {
+        return select;
+    }
+
+    public void setSelect(String select) {
+        this.select = select;
+    }
+
     @Generated(hash = 1868476517)
     public Question() {
     }
-    @Generated(hash = 255500365)
-    public Question(String id, String title, int itype, String rank, String classid, String courseid, String courseid2, String answers, String keys, String explain, String score, boolean is_en, boolean status) {
+    @Generated(hash = 675433217)
+    public Question(String id, String title, int itype, String rank, String classid, String courseid, String courseid2, String answers, String keys, String explain, String score, boolean is_en, boolean status,
+            String select) {
         this.id = id;
         this.title = title;
         this.itype = itype;
@@ -38,7 +84,9 @@ public class Question {
         this.score = score;
         this.is_en = is_en;
         this.status = status;
+        this.select = select;
     }
+
     public String getId() {
         return this.id;
     }
@@ -118,5 +166,26 @@ public class Question {
         this.status = status;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(title);
+        parcel.writeInt(itype);
+        parcel.writeString(rank);
+        parcel.writeString(classid);
+        parcel.writeString(courseid);
+        parcel.writeString(courseid2);
+        parcel.writeString(answers);
+        parcel.writeString(keys);
+        parcel.writeString(explain);
+        parcel.writeString(score);
+        parcel.writeByte((byte) (is_en ? 1 : 0));
+        parcel.writeByte((byte) (status ? 1 : 0));
+        parcel.writeString(select);
+    }
 }

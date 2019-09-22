@@ -1,6 +1,9 @@
 package com.example.administrator.myp2p.bean;
 
-public class TCourse {
+import java.io.Serializable;
+
+public class TCourse implements Serializable {
+    private static final long serialVersionUID =2L;
     private int id;
     private int classid;
     private String title;

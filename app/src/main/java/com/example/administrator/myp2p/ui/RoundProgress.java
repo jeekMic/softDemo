@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -27,11 +26,11 @@ public class RoundProgress extends View {
         this(context,null);
     }
 
-    public RoundProgress(Context context, @Nullable AttributeSet attrs) {
+    public RoundProgress(Context context,  AttributeSet attrs) {
         this(context, attrs,0);
     }
 
-    public RoundProgress(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public RoundProgress(Context context,  AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.RoundProgress);
         //圆环的颜色

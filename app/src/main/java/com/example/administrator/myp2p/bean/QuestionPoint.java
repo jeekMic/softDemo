@@ -1,6 +1,9 @@
 package com.example.administrator.myp2p.bean;
 
-public class QuestionPoint {
+import java.io.Serializable;
+
+public class QuestionPoint implements Serializable {
+    private static final long serialVersionUID = 3L;
     private String title;
     private String num;
 

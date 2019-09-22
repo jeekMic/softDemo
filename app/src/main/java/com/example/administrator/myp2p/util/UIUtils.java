@@ -2,12 +2,17 @@ package com.example.administrator.myp2p.util;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.example.administrator.myp2p.MyApplication;
 
+import org.json.JSONArray;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
+
 
 /**
  * 访问跟UI相关的一些操作
@@ -15,7 +20,8 @@ import java.util.Calendar;
 public class UIUtils{
     public  static int QUEATION_M = 0;//上午题
     public static int QUEATION_A = 1;//下午提
-    public static int QUEATION_P = 2;//知识点
+    public static int QUEATION_P = 2;//知识
+    public static boolean DEBUG = true;
 
     public static Context getContext(){
         return MyApplication.context;
@@ -96,5 +102,11 @@ public class UIUtils{
             return false;
         }
     }
+    public static void L(String str){
+        if (DEBUG){
+            Log.e("hongbiao===",str);
+        }
+    }
+
 
 }

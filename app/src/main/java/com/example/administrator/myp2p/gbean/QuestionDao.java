@@ -37,6 +37,7 @@ public class QuestionDao extends AbstractDao<Question, String> {
         public final static Property Score = new Property(10, String.class, "score", false, "SCORE");
         public final static Property Is_en = new Property(11, boolean.class, "is_en", false, "IS_EN");
         public final static Property Status = new Property(12, boolean.class, "status", false, "STATUS");
+        public final static Property Select = new Property(13, String.class, "select", false, "SELECT");
     }
 
 
@@ -64,7 +65,8 @@ public class QuestionDao extends AbstractDao<Question, String> {
                 "\"EXPLAIN\" TEXT," + // 9: explain
                 "\"SCORE\" TEXT," + // 10: score
                 "\"IS_EN\" INTEGER NOT NULL ," + // 11: is_en
-                "\"STATUS\" INTEGER NOT NULL );"); // 12: status
+                "\"STATUS\" INTEGER NOT NULL ," + // 12: status
+                "\"SELECT\" TEXT);"); // 13: select
     }
 
     /** Drops the underlying database table. */
@@ -129,6 +131,11 @@ public class QuestionDao extends AbstractDao<Question, String> {
         }
         stmt.bindLong(12, entity.getIs_en() ? 1L: 0L);
         stmt.bindLong(13, entity.getStatus() ? 1L: 0L);
+ 
+        String select = entity.getSelect();
+        if (select != null) {
+            stmt.bindString(14, select);
+        }
     }
 
     @Override
@@ -187,6 +194,11 @@ public class QuestionDao extends AbstractDao<Question, String> {
         }
         stmt.bindLong(12, entity.getIs_en() ? 1L: 0L);
         stmt.bindLong(13, entity.getStatus() ? 1L: 0L);
+ 
+        String select = entity.getSelect();
+        if (select != null) {
+            stmt.bindString(14, select);
+        }
     }
 
     @Override
@@ -209,7 +221,8 @@ public class QuestionDao extends AbstractDao<Question, String> {
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // explain
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // score
             cursor.getShort(offset + 11) != 0, // is_en
-            cursor.getShort(offset + 12) != 0 // status
+            cursor.getShort(offset + 12) != 0, // status
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13) // select
         );
         return entity;
     }
@@ -229,6 +242,7 @@ public class QuestionDao extends AbstractDao<Question, String> {
         entity.setScore(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setIs_en(cursor.getShort(offset + 11) != 0);
         entity.setStatus(cursor.getShort(offset + 12) != 0);
+        entity.setSelect(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
      }
     
     @Override

@@ -73,10 +73,10 @@ public class DBService {
         String str ="";
         int id= 1;
         if (index==0){
-            id= 1;
+            id= 2;
             str = "上午题";
         }else {
-            id=2;
+            id= 1;
             str = "下午案例分析";
         }
         conn = getConnection("soft");

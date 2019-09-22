@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".activity.AnswerActivity">
     <include layout="@layout/common_top"
         android:id="@+id/include"/>
     <LinearLayout
+        android:id="@+id/select_info"
+        android:layout_below="@id/include"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -44,9 +45,9 @@
             android:textColor="@color/title_select_back"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
     <ScrollView
         android:id="@+id/sv_detail"
+        android:layout_below="@id/select_info"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -60,36 +61,41 @@
             <TextView
                 android:id="@+id/answer_a"
                 android:paddingLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"
+                android:gravity="center|left"
                 android:drawableLeft="@mipmap/item_draw_a"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/answer_b"
                 android:paddingLeft="10dp"
-                android:gravity="center_vertical"
-                android:layout_marginTop="5dp"
+                android:gravity="center|left"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
                 android:drawableLeft="@mipmap/item_draw_b"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/answer_c"
                 android:paddingLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center_vertical"
+                android:layout_marginTop="15dp"
+                android:gravity="center|left"
+                android:textStyle="bold"
                 android:drawableLeft="@mipmap/item_draw_c"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/answer_d"
                 android:paddingLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center_vertical"
+                android:layout_marginTop="15dp"
+                android:gravity="center|left"
+                android:textStyle="bold"
                 android:drawableLeft="@mipmap/item_draw_d"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:visibility="invisible"
                 android:layout_marginTop="5dp"
                 android:id="@+id/stand_answer"
                 android:layout_width="match_parent"
@@ -99,9 +105,61 @@
                 android:layout_marginLeft="5dp"
                 android:padding="5dp"/>
             <WebView
+                android:visibility="invisible"
                 android:id="@+id/wv_explain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fab_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="right"
+        android:layout_marginBottom="20dp"
+        fab:fab_addButtonColorNormal="@color/colorAccent"
+        fab:fab_labelsPosition="right">
+        <!--       fab:fab_labelStyle="@style/menu_labels_style"-->
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_icon="@mipmap/most_answer"
+            fab:fab_size="mini"
+            fab:fab_title="第一个FAB" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_icon="@mipmap/explain"
+            fab:fab_size="mini"
+            fab:fab_title="第二个FAB" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tooltipText="解析"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_icon="@mipmap/collection_quest"
+            fab:fab_size="mini"
+            fab:fab_title="第三个FAB" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_icon="@mipmap/complete_exam"
+            fab:fab_size="mini"
+            fab:fab_title="第四个FAB" />
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+
+</RelativeLayout>
